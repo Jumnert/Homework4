@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Dashboard</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .dashboard-container {
+        display: grid;
+        min-height: 100vh;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "header header"
+          "sidebar main"
+          "footer footer";
+      }
+
+      .header {
+        grid-area: header;
+        background: rgb(0, 136, 255);
+        color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin: 10px;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .sidebar {
+        grid-area: sidebar;
+        background: #c5c6c6;
+        color: rgb(0, 0, 0);
+        padding: 2rem 1rem;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin: 10px;
+      }
+
+      .sidebar h2 {
+        color: #000000;
+        font-size: 1.2rem;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .sidebar a {
+        color: #000000;
+        text-decoration: none;
+        padding: 0.8rem 1rem;
+        display: block;
+      }
+
+      .sidebar a:hover {
+        background: #c5c6c6;
+      }
+
+      .main {
+        grid-area: main;
+        padding: 2rem;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .main h2 {
+        margin-bottom: 2rem;
+        color: #2c3e50;
+        font-size: 2rem;
+        font-weight: 300;
+        text-align: center;
+      }
+
+      .dashboard-widgets {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      .widget {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .widget::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+      }
+
+      .widget:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .widget h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .widget p {
+        color: #6c757d;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .footer {
+        grid-area: footer;
+        background: #252526;
+        color: white;
+        text-align: center;
+        padding: 1.5rem;
+        margin: 10px;
+      }
+
+      .footer p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+      @media (max-width: 768px) {
+        .dashboard-container {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto 1fr auto;
+          grid-template-areas:
+            "header"
+            "sidebar"
+            "main"
+            "footer";
+        }
+
+        .sidebar {
+          padding: 1rem;
+          text-align: center;
+        }
+
+        .sidebar ul {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .sidebar li {
+          margin: 0;
+        }
+
+        .main {
+          padding: 1.5rem;
+        }
+
+        .dashboard-widgets {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+
+        .widget {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header {
+          padding: 1rem;
+        }
+
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .main {
+          padding: 1rem;
+        }
+
+        .main h2 {
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .dashboard-widgets {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .widget {
+          padding: 1.2rem;
+        }
+
+        .widget h3 {
+          font-size: 1.1rem;
+        }
+
+        .sidebar ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <header class="header">
+        <h1>Dashboard</h1>
+      </header>
+
+      <aside class="sidebar">
+        <h2>Navigation</h2>
+        <ul>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#analytics">Analytics</a></li>
+          <li><a href="#reports">Reports</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </aside>
+
+      <main class="main">
+        <h2>Dashboard Overview</h2>
+        <div class="dashboard-widgets">
+          <div class="widget">
+            <h3>Widget 1</h3>
+            <p>Data visualization widget.</p>
+          </div>
+
+          <div class="widget">
+            <h3>Widget 2</h3>
+            <p>key performance indicators.</p>
+          </div>
+
+          <div class="widget">
+            <h3>Widget 3</h3>
+            <p>quick stats.</p>
+          </div>
+
+          <div class="widget">
+            <h3>Widget 4</h3>
+            <p>Recent activity feed.</p>
+          </div>
+
+          <div class="widget">
+            <h3>Widget 5</h3>
+            <p>to-do list.</p>
+          </div>
+
+          <div class="widget">
+            <h3>Widget 6</h3>
+            <p>Notification.</p>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>&copy; 2025 Dashboard. All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
+</html>
